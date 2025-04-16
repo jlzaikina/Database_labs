@@ -1,0 +1,24 @@
+﻿CREATE TABLE СТУДЕНТ (
+	Номер_зачетной_книжки INT PRIMARY KEY,
+    ФИО VARCHAR(100) NOT NULL,
+    Дата_рождения DATE
+);
+CREATE TABLE ПРЕПОДАВАТЕЛЬ (
+	ID_преподавателя INT AUTO_INCREMENT PRIMARY KEY,
+    ФИО VARCHAR(100) NOT NULL
+);
+CREATE TABLE ПРЕДМЕТ (
+	ID_предмета INT AUTO_INCREMENT PRIMARY KEY,
+    Название VARCHAR(50) NOT NULL,
+    Семестр INT NOT NULL,
+    ID_преподавателя INT NOT NULL,
+    FOREIGN KEY (ID_преподавателя) REFERENCES ПРЕПОДАВАТЕЛЬ(ID_преподавателя)
+);
+CREATE TABLE ОЦЕНКИ (
+	Номер_зачетной_книжки INT NOT NULL,
+    ID_предмета INT NOT NULL,
+    Оценка INT CHECK(оценка IN (3, 4, 5)),
+    PRIMARY KEY (Номер_зачетной_книжки, ID_предмета),
+    FOREIGN KEY (Номер_зачетной_книжки) REFERENCES СТУДЕНТ(Номер_зачетной_книжки),
+    FOREIGN KEY (ID_предмета) REFERENCES ПРЕДМЕТ(ID_предмета)
+);
